@@ -1,0 +1,53 @@
+<Header/>
+<main>
+    {{#unless selectUser}}
+    <div class="intro-wrap">
+        <h1>Select your username</h1>
+        <div class="form-input">
+            <label>Username:
+                <input on-change="handleInput" name="user" type="input"  value="{{ user }}">
+            </label>
+            <br>
+            <button on-tap="hideUserForm">Select</button>
+        </div>
+    </div>
+    {{/unless}}
+    <div class="page-wrap">
+        <div class="form-input status-wrap">
+            <div class="col-1">
+                {{#if user}}
+                    <div>Your username is <strong>{{user}}</strong></div>
+                {{/if}}
+                <div>Connection status: <strong>{{#if conn}}open{{else}}closed{{/if}}</strong></div>
+                {{#if !conn}}
+                    <button on-tap="connect">connect</button>
+                {{/if}}
+            </div><div class="col-2">
+                {{#if vibrate.sender && !sending}}
+                    <div>Incoming from <strong>{{vibrate.sender}}</strong></div>{{/if}}
+                {{#if sending}}<div>Sending...</div>{{/if}}
+            </div>
+        </div>
+        <div class="form-input">
+            <label>Username:
+                <input on-change="changeUser" type="input"  value="{{ vibrate.recipient }}">
+            </label>
+        </div>
+
+        <div class="button vibrate" on-press="startVibrate" on-pressup="endVibrate">
+            {{#if sending}}SENDING{{else}}PUSH{{/if}}</div>
+        <div class="form-input">
+            <select on-change="selectSpeed" value="{{ vibrate.speed }}">
+                <option value="200">Fast</option>
+                <option value="500">Medium</option>
+                <option value="1000">Slow</option>
+            </select>
+        </div>
+        <div class="form-input">
+            <input on-change="selectSpeed" type="range" min="100" max="1000" value="{{ vibrate.speed }}">
+        </div>
+        <div class="form-input">
+            <input on-change="selectSpeed" type="input"  value="{{ vibrate.speed }}">
+        </div>
+    </div>
+</main>
