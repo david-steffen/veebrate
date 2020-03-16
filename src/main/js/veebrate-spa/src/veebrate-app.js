@@ -41,7 +41,7 @@ const startTemplate = (data) => html`
         Veebrate
       </h1>
       <h2 class="subtitle">
-        A silly app to make your or a friend's phone vibrate 
+        A silly app to make your or another user's phone vibrate 
       </h2>
       <h3 class="subtitle is-size-6">
         (Best experienced on Android or iPhone)
@@ -139,7 +139,7 @@ const mainTemplate = (data) => html`
   <ul class="list is-hoverable">
     ${data.usersList.map((user) => html`
       <li class="${listItemClasses(data, user)}" @click="${recipentHandler(user.connectionID)}">
-        <div class="level">
+        <div class="level is-mobile">
           <div class="level-left">
             <div class="level-item">
               <span class="icon"><i class="fas fa-user"></i></span>
@@ -154,11 +154,11 @@ const mainTemplate = (data) => html`
           </div>
           <div class="level-right">
             ${data.senderID === user.connectionID
-              ? html`<div class="level-item"><span class="icon"><i class="fas fa-arrow-down"></i></span></div>`
+              ? html`<div class="level-item"><span class="icon has-text-warning"><i class="fas fa-arrow-down"></i></span></div>`
               : nothing
             }
             ${data.sending && data.recipientID === user.connectionID
-              ? html`<div class="level-item"><span class="icon"><i class="fas fa-arrow-up"></i></span></div>`
+              ? html`<div class="level-item"><span class="icon has-text-success"><i class="fas fa-arrow-up"></i></span></div>`
               : nothing
             }
           </div>
@@ -167,14 +167,14 @@ const mainTemplate = (data) => html`
     `)}
   </ul>
 </section>
-<section class="container is-fluid footer-container">
+<section class="container is-fluid footer-container has-background-light">
   <footer class="footer">
   <div class="content">
     <div class="field">
       <div class="control">
         <button
           ?disabled=${!data.recipientID.length}
-          class="button is-dark is-fullwidth"
+          class="button is-success is-fullwidth"
           @mousedown="${startVibrateHandler}"
           @mouseup="${endVibrateHandler}"
           @touchstart="${startVibrateHandler}"
