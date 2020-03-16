@@ -215,7 +215,7 @@ let store = {
       if (state.username === '') {
         state.error = 'You need to enter a username';
       } else if (state.eventbus === null) {
-        let eventbus = new EventBus(`http://${window.location.host}/eventbus`);
+        let eventbus = new EventBus(`${window.location.origin}/eventbus`);
         eventbus.onopen = (event) => {
           if (state.error.length) {
             update("SET_ERROR", '');
