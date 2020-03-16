@@ -103,7 +103,7 @@ public class App extends AbstractVerticle {
 
         router.route().handler(staticHandler);
         int port = Integer.getInteger("http.port", 8080);
-        String httpAddress = System.getProperty("http.address", "127.0.0.1");
+        String httpAddress = System.getProperty("http.address", "0.0.0.0");
         vertx.createHttpServer()
         .requestHandler(router)
         .listen(port, httpAddress, handler -> {
