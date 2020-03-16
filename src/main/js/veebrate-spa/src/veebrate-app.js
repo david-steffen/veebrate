@@ -172,7 +172,15 @@ const mainTemplate = (data) => html`
   <div class="content">
     <div class="field">
       <div class="control">
-        <button ?disabled=${!data.recipientID.length} class="button is-dark is-fullwidth" @mousedown="${startVibrateHandler}" @mouseup="${endVibrateHandler}">SEND</button>
+        <button
+          ?disabled=${!data.recipientID.length}
+          class="button is-dark is-fullwidth"
+          @mousedown="${startVibrateHandler}"
+          @mouseup="${endVibrateHandler}"
+          @touchstart="${startVibrateHandler}"
+          @touchend="${endVibrateHandler}"
+          @touchcancel="${endVibrateHandler}"
+        >SEND</button>
       </div>
     </div>
   </div>
