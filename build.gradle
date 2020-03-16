@@ -57,6 +57,8 @@ shadowJar {
 //     targetModule = 'bundle.js'
 // }
 
+task stage(dependsOn: ['clean', 'shadowJar'])
+
 application {
     // Define the main class for the application.
     mainClassName = 'veebrate.App'
