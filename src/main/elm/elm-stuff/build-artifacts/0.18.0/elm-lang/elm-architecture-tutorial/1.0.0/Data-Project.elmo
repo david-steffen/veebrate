@@ -1,0 +1,26 @@
+var _elm_lang$elm_architecture_tutorial$Data_Project$date = A2(
+	_elm_lang$core$Json_Decode$andThen,
+	function (_p0) {
+		return _elm_community$json_extra$Json_Decode_Extra$fromResult(
+			_elm_lang$core$Date$fromString(_p0));
+	},
+	_elm_lang$core$Json_Decode$string);
+var _elm_lang$elm_architecture_tutorial$Data_Project$Project = F7(
+	function (a, b, c, d, e, f, g) {
+		return {id: a, name: b, colour: c, company: d, abbreviation: e, total_time: f, created: g};
+	});
+var _elm_lang$elm_architecture_tutorial$Data_Project$projects = function () {
+	var project = A8(
+		_elm_lang$core$Json_Decode$map7,
+		_elm_lang$elm_architecture_tutorial$Data_Project$Project,
+		A2(_elm_lang$core$Json_Decode$field, '_id', _elm_lang$core$Json_Decode$string),
+		A2(_elm_lang$core$Json_Decode$field, 'name', _elm_lang$core$Json_Decode$string),
+		A2(_elm_lang$core$Json_Decode$field, 'colour', _elm_lang$core$Json_Decode$string),
+		A2(_elm_lang$core$Json_Decode$field, 'company', _elm_lang$core$Json_Decode$string),
+		A2(_elm_lang$core$Json_Decode$field, 'abbreviation', _elm_lang$core$Json_Decode$string),
+		A2(_elm_lang$core$Json_Decode$field, 'total_time', _elm_lang$core$Json_Decode$float),
+		A2(_elm_lang$core$Json_Decode$field, 'created', _elm_lang$elm_architecture_tutorial$Data_Project$date));
+	return _elm_lang$core$Json_Decode$list(project);
+}();
+var _elm_lang$elm_architecture_tutorial$Data_Project$fetchProjects = _elm_lang$http$Http$toTask(
+	A2(_elm_lang$http$Http$get, '/api/projects', _elm_lang$elm_architecture_tutorial$Data_Project$projects));

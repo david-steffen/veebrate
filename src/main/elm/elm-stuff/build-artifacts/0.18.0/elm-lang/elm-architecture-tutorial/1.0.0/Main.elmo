@@ -1,0 +1,566 @@
+var _elm_lang$elm_architecture_tutorial$Main$project = function (project) {
+	return A2(
+		_elm_lang$html$Html$tr,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('list-item'),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$td,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$div,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class('list-round-color'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$style(
+									{
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: 'borderColor', _1: project.colour},
+										_1: {ctor: '[]'}
+									}),
+								_1: {ctor: '[]'}
+							}
+						},
+						{
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$div,
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$class('list-round-text'),
+									_1: {ctor: '[]'}
+								},
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html$text(project.abbreviation),
+									_1: {ctor: '[]'}
+								}),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$td,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('list-title-row-center'),
+						_1: {ctor: '[]'}
+					},
+					{
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$div,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$class('list-row-content'),
+								_1: {ctor: '[]'}
+							},
+							{
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$span,
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html_Attributes$class('fa fa-list-alt'),
+										_1: {ctor: '[]'}
+									},
+									{ctor: '[]'}),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$strong,
+										{ctor: '[]'},
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html$text(project.name),
+											_1: {ctor: '[]'}
+										}),
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_elm_lang$html$Html$span,
+											{ctor: '[]'},
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html$text(
+													(_elm_lang$core$Native_Utils.cmp(
+														_elm_lang$core$String$length(project.company),
+														0) > 0) ? A2(_elm_lang$core$Basics_ops['++'], ' - ', project.company) : ''),
+												_1: {ctor: '[]'}
+											}),
+										_1: {ctor: '[]'}
+									}
+								}
+							}),
+						_1: {ctor: '[]'}
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$td,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class('list-title-row-right'),
+							_1: {ctor: '[]'}
+						},
+						{
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$div,
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$class('list-row-content list-edit'),
+									_1: {ctor: '[]'}
+								},
+								{
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$span,
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html_Attributes$class('fa fa-pencil-square'),
+											_1: {ctor: '[]'}
+										},
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html$text('Edit'),
+											_1: {ctor: '[]'}
+										}),
+									_1: {ctor: '[]'}
+								}),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}
+			}
+		});
+};
+var _elm_lang$elm_architecture_tutorial$Main$projects = function (projects) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$h1,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('Projects'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$table,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('list'),
+						_1: {ctor: '[]'}
+					},
+					{
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$tbody,
+							{ctor: '[]'},
+							A2(_elm_lang$core$List$map, _elm_lang$elm_architecture_tutorial$Main$project, projects)),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			}
+		});
+};
+var _elm_lang$elm_architecture_tutorial$Main$timeLogs = function (timeLogs) {
+	var timeLogLink = function (timeLog) {
+		return A2(
+			_elm_lang$html$Html$li,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text(timeLog.description),
+				_1: {ctor: '[]'}
+			});
+	};
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$h1,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('TimeLogs'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$ul,
+					{ctor: '[]'},
+					A2(_elm_lang$core$List$map, timeLogLink, timeLogs)),
+				_1: {ctor: '[]'}
+			}
+		});
+};
+var _elm_lang$elm_architecture_tutorial$Main$timeLog = function (timeLog) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$h1,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(
+						_elm_lang$core$Basics$toString(timeLog.time)),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$p,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text(timeLog.description),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			}
+		});
+};
+var _elm_lang$elm_architecture_tutorial$Main$loading = function (error) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$h1,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('Loading...'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$p,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text(
+							_elm_lang$core$Basics$toString(error)),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			}
+		});
+};
+var _elm_lang$elm_architecture_tutorial$Main$errorMsg = function (error) {
+	var _p0 = error;
+	if (_p0.ctor === 'Just') {
+		return _elm_lang$core$Basics$toString(error);
+	} else {
+		return 'moo';
+	}
+};
+var _elm_lang$elm_architecture_tutorial$Main$about = A2(
+	_elm_lang$html$Html$h1,
+	{ctor: '[]'},
+	{
+		ctor: '::',
+		_0: _elm_lang$html$Html$text('About'),
+		_1: {ctor: '[]'}
+	});
+var _elm_lang$elm_architecture_tutorial$Main$home = A2(
+	_elm_lang$html$Html$div,
+	{ctor: '[]'},
+	{
+		ctor: '::',
+		_0: A2(
+			_elm_lang$html$Html$h1,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text('Home Page'),
+				_1: {ctor: '[]'}
+			}),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$p,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html$text('moo'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {ctor: '[]'}
+		}
+	});
+var _elm_lang$elm_architecture_tutorial$Main$notFound = A2(
+	_elm_lang$html$Html$h1,
+	{ctor: '[]'},
+	{
+		ctor: '::',
+		_0: _elm_lang$html$Html$text('Page not found'),
+		_1: {ctor: '[]'}
+	});
+var _elm_lang$elm_architecture_tutorial$Main$content = function (_p1) {
+	var _p2 = _p1;
+	var _p4 = _p2;
+	var _p3 = _p4.route;
+	switch (_p3.ctor) {
+		case 'HomeR':
+			return _elm_lang$elm_architecture_tutorial$Main$home;
+		case 'TimeLogsR':
+			return _p4.readyTimes ? _elm_lang$elm_architecture_tutorial$Main$timeLogs(_p4.timeLogs) : _elm_lang$elm_architecture_tutorial$Main$loading(_p4.error);
+		case 'ProjectsR':
+			return _p4.readyProjects ? _elm_lang$elm_architecture_tutorial$Main$projects(_p4.projects) : _elm_lang$elm_architecture_tutorial$Main$loading(_p4.error);
+		case 'AboutR':
+			return _elm_lang$elm_architecture_tutorial$Main$about;
+		default:
+			return _elm_lang$elm_architecture_tutorial$Main$notFound;
+	}
+};
+var _elm_lang$elm_architecture_tutorial$Main$subscriptions = function (model) {
+	return _elm_lang$core$Platform_Sub$none;
+};
+var _elm_lang$elm_architecture_tutorial$Main$Model = F6(
+	function (a, b, c, d, e, f) {
+		return {route: a, readyTimes: b, readyProjects: c, timeLogs: d, projects: e, error: f};
+	});
+var _elm_lang$elm_architecture_tutorial$Main$FetchProjects = function (a) {
+	return {ctor: 'FetchProjects', _0: a};
+};
+var _elm_lang$elm_architecture_tutorial$Main$fetchProjects = A2(_elm_lang$core$Task$attempt, _elm_lang$elm_architecture_tutorial$Main$FetchProjects, _elm_lang$elm_architecture_tutorial$Data_Project$fetchProjects);
+var _elm_lang$elm_architecture_tutorial$Main$FetchTimes = function (a) {
+	return {ctor: 'FetchTimes', _0: a};
+};
+var _elm_lang$elm_architecture_tutorial$Main$fetchTimeLogs = A2(_elm_lang$core$Task$attempt, _elm_lang$elm_architecture_tutorial$Main$FetchTimes, _elm_lang$elm_architecture_tutorial$Data_TimeLog$fetchTimeLogs);
+var _elm_lang$elm_architecture_tutorial$Main$handleRoute = F2(
+	function (route, _p5) {
+		var _p6 = _p5;
+		var model = _elm_lang$core$Native_Utils.update(
+			_p6,
+			{route: route});
+		var _p7 = route;
+		switch (_p7.ctor) {
+			case 'TimeLogsR':
+				return _p6.readyTimes ? A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					{ctor: '[]'}) : A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					{
+						ctor: '::',
+						_0: _elm_lang$elm_architecture_tutorial$Main$fetchTimeLogs,
+						_1: {ctor: '[]'}
+					});
+			case 'ProjectsR':
+				return _p6.readyProjects ? A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					{ctor: '[]'}) : A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					{
+						ctor: '::',
+						_0: _elm_lang$elm_architecture_tutorial$Main$fetchProjects,
+						_1: {ctor: '[]'}
+					});
+			default:
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					{ctor: '[]'});
+		}
+	});
+var _elm_lang$elm_architecture_tutorial$Main$init = function (location) {
+	var route = _elm_lang$elm_architecture_tutorial$Routes$parsePath(location);
+	return A2(
+		_elm_lang$elm_architecture_tutorial$Main$handleRoute,
+		route,
+		{
+			route: route,
+			readyTimes: false,
+			readyProjects: false,
+			timeLogs: {ctor: '[]'},
+			projects: {ctor: '[]'},
+			error: _elm_lang$core$Maybe$Nothing
+		});
+};
+var _elm_lang$elm_architecture_tutorial$Main$update = F2(
+	function (msg, model) {
+		var _p8 = msg;
+		switch (_p8.ctor) {
+			case 'RouteChanged':
+				return A2(_elm_lang$elm_architecture_tutorial$Main$handleRoute, _p8._0, model);
+			case 'RouteTo':
+				return A2(
+					_elm_lang$core$Platform_Cmd_ops['!'],
+					model,
+					{
+						ctor: '::',
+						_0: _elm_lang$elm_architecture_tutorial$Routes$navigateTo(_p8._0),
+						_1: {ctor: '[]'}
+					});
+			case 'FetchTimes':
+				if (_p8._0.ctor === 'Err') {
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						_elm_lang$core$Native_Utils.update(
+							model,
+							{
+								error: _elm_lang$core$Maybe$Just(
+									_elm_lang$core$Basics$toString(_p8._0._0))
+							}),
+						{ctor: '[]'});
+				} else {
+					return A2(
+						_elm_lang$elm_architecture_tutorial$Main$handleRoute,
+						model.route,
+						_elm_lang$core$Native_Utils.update(
+							model,
+							{readyTimes: true, error: _elm_lang$core$Maybe$Nothing, timeLogs: _p8._0._0}));
+				}
+			default:
+				if (_p8._0.ctor === 'Err') {
+					return A2(
+						_elm_lang$core$Platform_Cmd_ops['!'],
+						_elm_lang$core$Native_Utils.update(
+							model,
+							{
+								error: _elm_lang$core$Maybe$Just(
+									_elm_lang$core$Basics$toString(_p8._0._0))
+							}),
+						{ctor: '[]'});
+				} else {
+					return A2(
+						_elm_lang$elm_architecture_tutorial$Main$handleRoute,
+						model.route,
+						_elm_lang$core$Native_Utils.update(
+							model,
+							{readyProjects: true, error: _elm_lang$core$Maybe$Nothing, projects: _p8._0._0}));
+				}
+		}
+	});
+var _elm_lang$elm_architecture_tutorial$Main$RouteTo = function (a) {
+	return {ctor: 'RouteTo', _0: a};
+};
+var _elm_lang$elm_architecture_tutorial$Main$link = F2(
+	function (route, label) {
+		var opts = {preventDefault: true, stopPropagation: true};
+		return A2(
+			_elm_lang$html$Html$a,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$href(
+					_elm_lang$elm_architecture_tutorial$Routes$toString(route)),
+				_1: {
+					ctor: '::',
+					_0: A3(
+						_elm_lang$html$Html_Events$onWithOptions,
+						'click',
+						opts,
+						_elm_lang$core$Json_Decode$succeed(
+							_elm_lang$elm_architecture_tutorial$Main$RouteTo(route))),
+					_1: {ctor: '[]'}
+				}
+			},
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html$text(label),
+				_1: {ctor: '[]'}
+			});
+	});
+var _elm_lang$elm_architecture_tutorial$Main$nav = A2(
+	_elm_lang$html$Html$ul,
+	{ctor: '[]'},
+	{
+		ctor: '::',
+		_0: A2(
+			_elm_lang$html$Html$li,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: A2(_elm_lang$elm_architecture_tutorial$Main$link, _elm_lang$elm_architecture_tutorial$Routes$HomeR, 'Home'),
+				_1: {ctor: '[]'}
+			}),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$li,
+				{ctor: '[]'},
+				{
+					ctor: '::',
+					_0: A2(_elm_lang$elm_architecture_tutorial$Main$link, _elm_lang$elm_architecture_tutorial$Routes$TimeLogsR, 'TimeLogs'),
+					_1: {ctor: '[]'}
+				}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$li,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: A2(_elm_lang$elm_architecture_tutorial$Main$link, _elm_lang$elm_architecture_tutorial$Routes$ProjectsR, 'Projects'),
+						_1: {ctor: '[]'}
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$li,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: A2(_elm_lang$elm_architecture_tutorial$Main$link, _elm_lang$elm_architecture_tutorial$Routes$AboutR, 'About'),
+							_1: {ctor: '[]'}
+						}),
+					_1: {ctor: '[]'}
+				}
+			}
+		}
+	});
+var _elm_lang$elm_architecture_tutorial$Main$view = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: _elm_lang$elm_architecture_tutorial$Main$nav,
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$elm_architecture_tutorial$Main$content(model),
+				_1: {ctor: '[]'}
+			}
+		});
+};
+var _elm_lang$elm_architecture_tutorial$Main$RouteChanged = function (a) {
+	return {ctor: 'RouteChanged', _0: a};
+};
+var _elm_lang$elm_architecture_tutorial$Main$parseRoute = function (_p9) {
+	return _elm_lang$elm_architecture_tutorial$Main$RouteChanged(
+		_elm_lang$elm_architecture_tutorial$Routes$parsePath(_p9));
+};
+var _elm_lang$elm_architecture_tutorial$Main$main = A2(
+	_elm_lang$navigation$Navigation$program,
+	_elm_lang$elm_architecture_tutorial$Main$parseRoute,
+	{init: _elm_lang$elm_architecture_tutorial$Main$init, update: _elm_lang$elm_architecture_tutorial$Main$update, view: _elm_lang$elm_architecture_tutorial$Main$view, subscriptions: _elm_lang$elm_architecture_tutorial$Main$subscriptions})();

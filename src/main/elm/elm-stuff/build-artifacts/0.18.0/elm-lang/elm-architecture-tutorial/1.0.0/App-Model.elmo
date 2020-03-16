@@ -1,0 +1,12 @@
+var _elm_lang$elm_architecture_tutorial$App_Model$initialModel = function (route) {
+	return {timeLogs: _krisajenkins$remotedata$RemoteData$Loading, route: route};
+};
+var _elm_lang$elm_architecture_tutorial$App_Model$Model = F2(
+	function (a, b) {
+		return {timeLogs: a, route: b};
+	});
+var _elm_lang$elm_architecture_tutorial$App_Model$NotFoundRoute = {ctor: 'NotFoundRoute'};
+var _elm_lang$elm_architecture_tutorial$App_Model$TimeLogRoute = function (a) {
+	return {ctor: 'TimeLogRoute', _0: a};
+};
+var _elm_lang$elm_architecture_tutorial$App_Model$TimeLogsRoute = {ctor: 'TimeLogsRoute'};

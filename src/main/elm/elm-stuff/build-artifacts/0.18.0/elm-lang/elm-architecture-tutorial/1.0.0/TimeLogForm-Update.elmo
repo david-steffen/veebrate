@@ -1,0 +1,8 @@
+var _elm_lang$elm_architecture_tutorial$TimeLogForm_Update$update = F2(
+	function (_p0, oldContent) {
+		var _p1 = _p0;
+		return _p1._0;
+	});
+var _elm_lang$elm_architecture_tutorial$TimeLogForm_Update$NewContent = function (a) {
+	return {ctor: 'NewContent', _0: a};
+};

@@ -1,0 +1,35 @@
+var _elm_lang$elm_architecture_tutorial$App_Routing$timeLogPath = function (id) {
+	return A2(_elm_lang$core$Basics_ops['++'], '#timeLogs/', id);
+};
+var _elm_lang$elm_architecture_tutorial$App_Routing$timeLogsPath = '#timeLogs';
+var _elm_lang$elm_architecture_tutorial$App_Routing$matchers = _evancz$url_parser$UrlParser$oneOf(
+	{
+		ctor: '::',
+		_0: A2(_evancz$url_parser$UrlParser$map, _elm_lang$elm_architecture_tutorial$App_Model$TimeLogsRoute, _evancz$url_parser$UrlParser$top),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_evancz$url_parser$UrlParser$map,
+				_elm_lang$elm_architecture_tutorial$App_Model$TimeLogRoute,
+				A2(
+					_evancz$url_parser$UrlParser_ops['</>'],
+					_evancz$url_parser$UrlParser$s('timeLogs'),
+					_evancz$url_parser$UrlParser$string)),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_evancz$url_parser$UrlParser$map,
+					_elm_lang$elm_architecture_tutorial$App_Model$TimeLogsRoute,
+					_evancz$url_parser$UrlParser$s('timeLogs')),
+				_1: {ctor: '[]'}
+			}
+		}
+	});
+var _elm_lang$elm_architecture_tutorial$App_Routing$parseLocation = function (location) {
+	var _p0 = A2(_evancz$url_parser$UrlParser$parseHash, _elm_lang$elm_architecture_tutorial$App_Routing$matchers, location);
+	if (_p0.ctor === 'Just') {
+		return _p0._0;
+	} else {
+		return _elm_lang$elm_architecture_tutorial$App_Model$NotFoundRoute;
+	}
+};

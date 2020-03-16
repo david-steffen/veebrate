@@ -1,0 +1,56 @@
+var _elm_lang$elm_architecture_tutorial$Update$updateTimeLog = F2(
+	function (model, updatedTimeLog) {
+		var pick = function (currentTimeLog) {
+			return _elm_lang$core$Native_Utils.eq(updatedTimeLog.id, currentTimeLog.id) ? updatedTimeLog : currentTimeLog;
+		};
+		var updateTimeLogList = function (timeLogs) {
+			return A2(_elm_lang$core$List$map, pick, timeLogs);
+		};
+		var updatedTimeLogs = A2(_krisajenkins$remotedata$RemoteData$map, updateTimeLogList, model.timeLogs);
+		return _elm_lang$core$Native_Utils.update(
+			model,
+			{timeLogs: updatedTimeLogs});
+	});
+var _elm_lang$elm_architecture_tutorial$Update$update = F2(
+	function (msg, model) {
+		var _p0 = msg;
+		switch (_p0.ctor) {
+			case 'OnFetchTimeLogs':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{timeLogs: _p0._0}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'OnLocationChange':
+				var newRoute = _elm_lang$elm_architecture_tutorial$Routing$parseLocation(_p0._0);
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{route: newRoute}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'ChangeTime':
+				var _p1 = _p0._0;
+				var updatedTimeLog = _elm_lang$core$Native_Utils.update(
+					_p1,
+					{time: _p1.time + _p0._1});
+				return {
+					ctor: '_Tuple2',
+					_0: model,
+					_1: _elm_lang$elm_architecture_tutorial$Commands$saveTimeLogCmd(updatedTimeLog)
+				};
+			default:
+				if (_p0._0.ctor === 'Ok') {
+					return {
+						ctor: '_Tuple2',
+						_0: A2(_elm_lang$elm_architecture_tutorial$Update$updateTimeLog, model, _p0._0._0),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				} else {
+					return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+				}
+		}
+	});

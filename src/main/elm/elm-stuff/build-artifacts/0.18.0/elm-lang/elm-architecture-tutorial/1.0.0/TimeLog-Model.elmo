@@ -1,0 +1,4 @@
+var _elm_lang$elm_architecture_tutorial$TimeLog_Model$TimeLog = F3(
+	function (a, b, c) {
+		return {id: a, content: b, time: c};
+	});

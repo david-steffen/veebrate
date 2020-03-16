@@ -1,0 +1,25 @@
+var _elm_lang$elm_architecture_tutorial$Data_TimeLog$date = A2(
+	_elm_lang$core$Json_Decode$andThen,
+	function (_p0) {
+		return _elm_community$json_extra$Json_Decode_Extra$fromResult(
+			_elm_lang$core$Date$fromString(_p0));
+	},
+	_elm_lang$core$Json_Decode$string);
+var _elm_lang$elm_architecture_tutorial$Data_TimeLog$TimeLog = F6(
+	function (a, b, c, d, e, f) {
+		return {id: a, description: b, time: c, log_date: d, project_id: e, created: f};
+	});
+var _elm_lang$elm_architecture_tutorial$Data_TimeLog$timeLogs = function () {
+	var timeLog = A7(
+		_elm_lang$core$Json_Decode$map6,
+		_elm_lang$elm_architecture_tutorial$Data_TimeLog$TimeLog,
+		A2(_elm_lang$core$Json_Decode$field, '_id', _elm_lang$core$Json_Decode$string),
+		A2(_elm_lang$core$Json_Decode$field, 'description', _elm_lang$core$Json_Decode$string),
+		A2(_elm_lang$core$Json_Decode$field, 'time', _elm_lang$core$Json_Decode$float),
+		A2(_elm_lang$core$Json_Decode$field, 'log_date', _elm_lang$elm_architecture_tutorial$Data_TimeLog$date),
+		A2(_elm_lang$core$Json_Decode$field, 'project_id', _elm_lang$core$Json_Decode$string),
+		A2(_elm_lang$core$Json_Decode$field, 'created', _elm_lang$elm_architecture_tutorial$Data_TimeLog$date));
+	return _elm_lang$core$Json_Decode$list(timeLog);
+}();
+var _elm_lang$elm_architecture_tutorial$Data_TimeLog$fetchTimeLogs = _elm_lang$http$Http$toTask(
+	A2(_elm_lang$http$Http$get, '/api/tasks', _elm_lang$elm_architecture_tutorial$Data_TimeLog$timeLogs));

@@ -1,0 +1,25 @@
+var _elm_lang$elm_architecture_tutorial$Data$lookupPost = F2(
+	function (id, posts) {
+		return _elm_lang$core$List$head(
+			A2(
+				_elm_lang$core$List$filter,
+				function (p) {
+					return _elm_lang$core$Native_Utils.eq(p.id, id);
+				},
+				posts));
+	});
+var _elm_lang$elm_architecture_tutorial$Data$Post = F3(
+	function (a, b, c) {
+		return {id: a, title: b, body: c};
+	});
+var _elm_lang$elm_architecture_tutorial$Data$posts = function () {
+	var post = A4(
+		_elm_lang$core$Json_Decode$map3,
+		_elm_lang$elm_architecture_tutorial$Data$Post,
+		A2(_elm_lang$core$Json_Decode$field, 'id', _elm_lang$core$Json_Decode$int),
+		A2(_elm_lang$core$Json_Decode$field, 'title', _elm_lang$core$Json_Decode$string),
+		A2(_elm_lang$core$Json_Decode$field, 'body', _elm_lang$core$Json_Decode$string));
+	return _elm_lang$core$Json_Decode$list(post);
+}();
+var _elm_lang$elm_architecture_tutorial$Data$fetchPosts = _elm_lang$http$Http$toTask(
+	A2(_elm_lang$http$Http$get, '/api/tasks', _elm_lang$elm_architecture_tutorial$Data$posts));

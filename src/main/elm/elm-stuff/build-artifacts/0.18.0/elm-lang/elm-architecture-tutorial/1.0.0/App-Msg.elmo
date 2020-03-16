@@ -1,0 +1,13 @@
+var _elm_lang$elm_architecture_tutorial$App_Msg$ChangeTime = F2(
+	function (a, b) {
+		return {ctor: 'ChangeTime', _0: a, _1: b};
+	});
+var _elm_lang$elm_architecture_tutorial$App_Msg$OnTimeLogSave = function (a) {
+	return {ctor: 'OnTimeLogSave', _0: a};
+};
+var _elm_lang$elm_architecture_tutorial$App_Msg$OnLocationChange = function (a) {
+	return {ctor: 'OnLocationChange', _0: a};
+};
+var _elm_lang$elm_architecture_tutorial$App_Msg$OnFetchTimeLogs = function (a) {
+	return {ctor: 'OnFetchTimeLogs', _0: a};
+};
