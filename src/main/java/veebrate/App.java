@@ -2,6 +2,7 @@ package veebrate;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Launcher;
+import io.vertx.core.Promise;
 import io.vertx.core.Handler;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.json.JsonArray;
@@ -29,7 +30,7 @@ public class App extends AbstractVerticle {
     }
 
     @Override
-    public void start() {
+    public void start(Promise<Void> promise) {
 
         Router router = Router.router(vertx);
         SockJSHandlerOptions options = new SockJSHandlerOptions();
@@ -54,16 +55,18 @@ public class App extends AbstractVerticle {
             System.out.println(error.getMessage());
         });
 
+        SockJSHandler sockJSHandler = SockJSHandler.create(vertx, options);
+
         BridgeOptions bridgeOptions = new BridgeOptions()
         .addInboundPermitted(new PermittedOptions().setAddress("user.messageIn"))
         .addInboundPermitted(new PermittedOptions().setAddress("user.connect"))
         .addOutboundPermitted(new PermittedOptions().setAddress("user.messageOut"))
         .addOutboundPermitted(new PermittedOptions().setAddress("user.connected"));
 
-        Handler<BridgeEvent> bridgeEventHandler = be -> {
+        Handler<BridgeEvent> bridgeEventHandler = be -> {     
+            String connectionID = be.socket().writeHandlerID();
             if (be.type() == BridgeEventType.SEND && be.getRawMessage().getString("address").equals("user.connect")) {
                 JsonObject body = be.getRawMessage().getJsonObject("body");
-                String connectionID = be.socket().writeHandlerID();
                 User user = new User();
                 user.setConnectionID(connectionID);
                 user.setUserName(body.getString("username"));
@@ -76,27 +79,30 @@ public class App extends AbstractVerticle {
                     users.add(user_.toJson());
                 }
                 JsonObject payload = new JsonObject();
-                payload.put("connectionID", be.socket().writeHandlerID());
+                payload.put("connectionID", connectionID);
                 payload.put("users", users);
                 JsonObject response = be.getRawMessage();
                 response.put("body", payload);
                 be.setRawMessage(response);
             } else if (be.type() == BridgeEventType.RECEIVE && be.getRawMessage().getString("address").equals("user.messageOut")) {
-                String recipient = be.getRawMessage().getJsonObject("body").getString("recipientID");
-                if (!be.socket().writeHandlerID().equals(connections.get(recipient).getConnectionID())) {
+                String recipientString = be.getRawMessage().getJsonObject("body").getString("recipientID");
+                User recipient = connections.get(recipientString);
+                if (recipient == null || !connectionID.equals(recipient.getConnectionID())) {
                     be.complete(false);
                     return;
                 }
             } else if (be.type() == BridgeEventType.SOCKET_CLOSED) {
-                String connectionID = be.socket().writeHandlerID();
                 connections.remove(connectionID);
                 eb.publish("user.connected", null);
             }
             be.complete(true);
         };
-        SockJSHandler sockJSHandler = SockJSHandler.create(vertx, options);
 
-        router.mountSubRouter("/eventbus", sockJSHandler.bridge(bridgeOptions, bridgeEventHandler));
+        router.mountSubRouter("/eventbus", sockJSHandler
+            .bridge(bridgeOptions, bridgeEventHandler))
+            .errorHandler(500, error -> {
+                System.out.println(error);
+            });
 
         router.route().handler(BodyHandler.create());
         StaticHandler staticHandler = StaticHandler.create("webroot");
@@ -106,11 +112,14 @@ public class App extends AbstractVerticle {
         String httpAddress = System.getProperty("http.address", "0.0.0.0");
         vertx.createHttpServer()
         .requestHandler(router)
+        .exceptionHandler(error -> {
+            System.out.println(error.getMessage());
+        })
         .listen(port, httpAddress, handler -> {
             if (handler.succeeded()) {
-                System.out.println("App now running at '" + httpAddress + ":" + port + "'");
+                promise.complete();
             } else {
-                System.err.println("App failed");
+                promise.fail(handler.cause());
             }
         });
     }

@@ -261,6 +261,14 @@ let store = {
     "SET_CONN_RESPONSE": ({update, state}, {isConnected, connectionID, users}) => {
       state.isConnected = isConnected;
       state.connectionID = connectionID;
+      if (state.recipientID.length) {
+        const isCurrentRecipientConnected = users.some((user) => {
+          return state.recipientID === user.connectionID;
+        })
+        if (!isCurrentRecipientConnected) {
+          state.recipientID = '';
+        }
+      }
       if (users.length > 1) {
         const currentUserIndex = users.findIndex((user) => {
           return user.connectionID === state.connectionID;
