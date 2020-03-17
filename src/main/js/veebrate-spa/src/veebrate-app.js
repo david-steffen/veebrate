@@ -51,10 +51,18 @@ const startTemplate = (data) => html`
       </p>
       <div class="field has-addons has-addons-centered">
         <div class="control">
-          <input class="input" type="text" name="username" @input=${inputHandler}>
+          <input
+            class="input"
+            type="text"
+            name="username"
+            @input=${inputHandler}
+          >
         </div>
         <div class="control">
-          <button class="button is-success" @click=${connectHandler}>Confirm</button>
+          <button
+            class="button is-success${data.isLoading ? ' is-loading' : ''}"
+            @click=${connectHandler}
+          >Confirm</button>
         </div>
       </div>
       ${data.error.length
@@ -200,6 +208,7 @@ const view = (data) => html`
 const initState = {
   username: '',
   isConnected: false,
+  isLoading: false,
   error: '',
   eventbus: null,
   connectionID: '',
@@ -223,6 +232,7 @@ let store = {
       if (state.username === '') {
         state.error = 'You need to enter a username';
       } else if (state.eventbus === null) {
+        state.isLoading = true;
         let eventbus = new EventBus(`${window.location.origin}/eventbus`);
         eventbus.onopen = (event) => {
           if (state.error.length) {
@@ -259,6 +269,7 @@ let store = {
       state.isConnected = isConnected;
     },
     "SET_CONN_RESPONSE": ({update, state}, {isConnected, connectionID, users}) => {
+      state.isLoading = !isConnected;
       state.isConnected = isConnected;
       state.connectionID = connectionID;
       if (state.recipientID.length) {
