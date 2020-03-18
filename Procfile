@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -Dhttp.port=$PORT -jar build/libs/veebrate-*-fat.jar
+web: java $JAVA_OPTS -Dhttp.port=$PORT -jar build/libs/veebrate-*.jar
