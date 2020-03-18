@@ -35,12 +35,14 @@ dependencies {
     implementation "io.vertx:vertx-core:$vertxVersion"
     implementation "io.vertx:vertx-web:$vertxVersion"
     implementation "io.vertx:vertx-web-client:$vertxVersion"
+    implementation "io.vertx:vertx-lang-js:$vertxVersion"
+    implementation "io.vertx:vertx-lang-kotlin:$vertxVersion"
+    implementation "io.vertx:vertx-lang-scala_2.12:$vertxVersion"
     testImplementation "junit:junit:4.12"
     testImplementation "io.vertx:vertx-unit:$vertxVersion"
 }
 
 shadowJar {
-    classifier = 'fat'
     manifest {
         attributes "Main-Verticle": mainVerticleName
     }

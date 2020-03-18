@@ -23,7 +23,7 @@ import java.util.Collection;
 
 public class App extends AbstractVerticle {
 
-    private Map<String,User> connections;
+    private Map<String,User> connections = new HashMap<>();
 
     public static void main(String[] args) {
         Launcher.executeCommand("run", App.class.getName());
@@ -33,11 +33,6 @@ public class App extends AbstractVerticle {
     public void start(Promise<Void> promise) {
 
         Router router = Router.router(vertx);
-        SockJSHandlerOptions options = new SockJSHandlerOptions();
-        options.setHeartbeatInterval(20000);
-        options.setSessionTimeout(60000);
-
-        connections = new HashMap<>();
         
         EventBus eb = vertx.eventBus();
 
@@ -55,6 +50,10 @@ public class App extends AbstractVerticle {
             System.out.println(error.getMessage());
         });
 
+        SockJSHandlerOptions options = new SockJSHandlerOptions();
+        options.setHeartbeatInterval(2000);
+        options.setSessionTimeout(6000);
+
         SockJSHandler sockJSHandler = SockJSHandler.create(vertx, options);
 
         BridgeOptions bridgeOptions = new BridgeOptions()
@@ -69,14 +68,19 @@ public class App extends AbstractVerticle {
                 JsonObject body = be.getRawMessage().getJsonObject("body");
                 User user = new User();
                 user.setConnectionID(connectionID);
-                user.setUserName(body.getString("username"));
+                user.setUserName(body.getString("userName"));
                 user.setCanVibrate(body.getBoolean("canVibrate"));
                 connections.put(connectionID, user);
             } else if (be.type() == BridgeEventType.RECEIVE && be.getRawMessage().getString("address").equals("user.connected")) {
                 JsonArray users = new JsonArray();
                 Collection<User> collectionConns = connections.values();
                 for (User user_ : collectionConns) {
-                    users.add(user_.toJson());
+                    users.add(
+                        new JsonObject()
+                            .put("connectionID", user_.getConnectionID())
+                            .put("userName", user_.getUserName())
+                            .put("canVibrate", user_.getCanVibrate())
+                    );
                 }
                 JsonObject payload = new JsonObject();
                 payload.put("connectionID", connectionID);
@@ -105,28 +109,29 @@ public class App extends AbstractVerticle {
             });
 
         router.route().handler(BodyHandler.create());
-        StaticHandler staticHandler = StaticHandler.create("webroot");
+        // StaticHandler staticHandler = StaticHandler.create("webroot");
+        StaticHandler staticHandler = StaticHandler.create("src/main/resources/webroot");
 
         router.route().handler(staticHandler);
         int port = Integer.getInteger("http.port", 8080);
         String httpAddress = System.getProperty("http.address", "0.0.0.0");
         vertx.createHttpServer()
-        .requestHandler(router)
-        .exceptionHandler(error -> {
-            System.out.println(error.getMessage());
-        })
-        .listen(port, httpAddress, handler -> {
-            if (handler.succeeded()) {
-                promise.complete();
-            } else {
-                promise.fail(handler.cause());
-            }
-        });
+            .requestHandler(router)
+            .exceptionHandler(error -> {
+                System.out.println(error.getMessage());
+            })
+            .listen(port, httpAddress, result -> {
+                if (result.succeeded()) {
+                    promise.complete();
+                } else {
+                    promise.fail(result.cause());
+                }
+            });
     }
 
     private class User {
         private String connectionID;
-        private String username;
+        private String userName;
         private boolean canVibrate;
 
         public User(){
@@ -138,24 +143,16 @@ public class App extends AbstractVerticle {
             this.connectionID = id;
         }
         public String getUserName() {
-            return username;
+            return userName;
         }
         public void setUserName(String name) {
-            this.username = name;
+            this.userName = name;
         }
         public boolean getCanVibrate() {
             return canVibrate;
         }
         public void setCanVibrate(boolean canVibrate) {
             this.canVibrate = canVibrate;
-        }
-
-        public JsonObject toJson() {
-            JsonObject jsonObject = new JsonObject();
-            jsonObject.put("connectionID", connectionID);
-            jsonObject.put("username", username);
-            jsonObject.put("canVibrate", canVibrate);
-            return jsonObject;
         }
     }
 }

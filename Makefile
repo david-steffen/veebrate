@@ -1,5 +1,5 @@
 server-dev:
-	./gradlew runShadow -t
+	vertx run src/main/java/veebrate/App.java --redeploy="**/*.java" --launcher-class=io.vertx.core.Launcher
 
 server-build:
 	npm --prefix src/main/js/veebrate-spa run build
